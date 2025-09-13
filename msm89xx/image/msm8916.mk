@@ -13,7 +13,7 @@ define Device/yiming-uz801v3
   DEVICE_MODEL := uz801v3
   DEVICE_DTS := msm8916-yiming-uz801v3
   DEVICE_DTS_DIR := ../dts
-  DEVICE_PACKAGES := uz801-tweaks wpad-basic-wolfssl msm-firmware-loader
+  DEVICE_PACKAGES := uz801-tweaks wpad-basic-wolfssl qcom-msm8916-uz801-wcnss-firmware qcom-msm8916-wcnss-uz801-nv qcom-msm8916-modem-uz801-firmware
 endef
 TARGET_DEVICES += yiming-uz801v3
 

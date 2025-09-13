@@ -25,10 +25,8 @@ define Build/Compile
 	mkdir -p $(PKG_BUILD_DIR)/uz801
 	mcopy -i ./files/modem.bin -p -m -n -v \
 		::image/mba.mbn ::image/modem.* ::image/wcnss.* \
-		$(PKG_BUILD_DIR)/uz801
+		::image/modem_pr/mcfg/configs/mcfg_sw/generic/common/default/default/mcfg_sw.mbn $(PKG_BUILD_DIR)/uz801
 endef
-
-# ::image/modem_pr/mcfg/configs/mcfg_sw/generic/common/default/default/mcfg_sw.mbn
 
 define Package/qcom-msm8916-uz801-wcnss-firmware
   $(Package/qcom-firmware-default)
@@ -67,11 +65,10 @@ define Package/qcom-msm8916-modem-uz801-firmware/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/uz801/modem.* \
 		$(1)/lib/firmware
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/uz801/mcfg_sw.mbn \
+		$(1)/lib/firmware
 endef
-
-# 	$(INSTALL_DATA) \
-# 		$(PKG_BUILD_DIR)/uz801/mcfg_sw.mbn \
-# 		$(1)/lib/firmware
 
 $(eval $(call BuildPackage,qcom-msm8916-uz801-wcnss-firmware))
 $(eval $(call BuildPackage,qcom-msm8916-wcnss-uz801-nv))
