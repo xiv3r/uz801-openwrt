@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# create modem interface
+uci set network.modem=interface
+uci set network.modem.proto='modemmanager'
+uci set network.modem.device='qcom-soc'
+uci set network.modem.auth='none'
+uci set network.modem.iptype='ipv4v6'
+uci del_list firewall.@zone[1].network='modem'
+uci add_list firewall.@zone[1].network='modem'
+uci commit
+/etc/init.d/network restart
+
+# Enabling Wifi
+uci set wireless.@wifi-device[0].disabled='0'
+uci set wireless.@wifi-iface[0].disabled='0'
+
+# HACK : restart network to find modem after reboot
+# echo -e '(sleep 25 && /etc/init.d/modemmanager restart) & \n ( procd -h /etc/hotplug-gcreboot.json> /dev/null ) & ' > /etc/rc.local
+# echo 'sleep 25 && /etc/init.d/network restart' > /etc/rc.local
+
+apk del uz801-tweaks

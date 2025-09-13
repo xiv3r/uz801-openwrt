@@ -1,0 +1,34 @@
+#
+# Copyright (C) 2020-2022 HandsomeMod Project
+#
+# This is free software, licensed under the GNU General Public License v3.
+#
+#
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=uz801-tweaks
+PKG_VERSION:=1.0
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/$(PKG_NAME)
+	SECTION:=Utilities
+	CATEGORY:=Utilities
+	TITLE:=Defaults Setting For uz801v3
+	DEPENDS:=+rootfs-resizer +PACKAGE_luci:luci-proto-modemmanager +kmod-usb-lib-composite +rmtfs
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
+endef
+
+define Package/$(PKG_NAME)/install 
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_BIN) ./files/uci-defaults $(1)/etc/uci-defaults
+endef 
+
+$(eval $(call BuildPackage,$(PKG_NAME)))

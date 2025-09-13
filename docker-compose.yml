@@ -1,0 +1,26 @@
+services:
+  builder:
+    build: 
+      context: .
+      dockerfile: Dockerfile.lkiuyu
+    container_name: openwrt-builder
+    working_dir: /home/builder/openwrt
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/repo
+      - ./packages:/home/builder/openwrt/package/uz801
+      - ./bin:/home/builder/openwrt/bin
+      # - ./files:/home/builder/openwrt/files
+      # - ./diffconfig:/home/builder/openwrt/.config
+      - openwrt-dl:/home/builder/openwrt/dl
+      - openwrt-build-dir:/home/builder/openwrt/build_dir
+    entrypoint: entrypoint.sh
+    command: ["/bin/bash"]
+    depends_on:
+      chown-fix:
+        condition: service_completed_successfully
+
+volumes:
+  openwrt-dl:
+  openwrt-build-dir:

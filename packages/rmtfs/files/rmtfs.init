@@ -1,0 +1,31 @@
+#!/bin/sh /etc/rc.common
+# /etc/init.d/rmtfs
+# Qualcomm Remote File System daemon for MSM8916
+
+START=15
+STOP=85
+
+USE_PROCD=1
+PROG=/usr/sbin/rmtfs
+OOM_ADJ=-17
+
+populate_disk_labels() {
+	mkdir -p /dev/disk/by-partlabel/
+	for part in /sys/block/mmcblk*/mmcblk*p*; do
+		[ -e "$part/uevent" ] || continue
+		DEVNAME="$(grep DEVNAME "$part"/uevent | cut -d= -f2)"
+		PARTNAME="$(grep PARTNAME "$part"/uevent | cut -d= -f2)"
+		[ -n "$DEVNAME" ] && [ -n "$PARTNAME" ] && \
+			ln -sf /dev/$DEVNAME /dev/disk/by-partlabel/$PARTNAME
+	done
+}
+
+start_service() {
+	populate_disk_labels
+
+	procd_open_instance
+	procd_set_param command "$PROG" -P -r -s
+	procd_set_param oom_score_adj $OOM_ADJ
+	procd_set_param respawn
+	procd_close_instance
+}
