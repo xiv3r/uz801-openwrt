@@ -1,0 +1,12 @@
+mmcli -m 0 --simple-connect="apn=internet,ip-type=ipv4"
+mmcli -m 0 --bearer=4
+
+# uqmi -d /dev/cdc-wdm0 --start-network internet --autoconnect
+# qmicli -d /dev/cdc-wdm0 --device-open-proxy
+# qmi-network /dev/cdc-wdm0 start
+
+ip link set wwan0 up
+ip addr add 10.31.82.182/30 dev wwan0
+ip route add default via 10.31.82.181 dev wwan0
+echo "nameserver 46.6.113.2" > /etc/resolv.conf
+echo "nameserver 217.168.13.34" >> /etc/resolv.conf
