@@ -31,6 +31,7 @@ These are my attempts at building the os... my end goal is to build a working mo
 - Revert back to bundling the firmwares...
 
 #### TODO:
+- Modem does not register...
 - Use `msm-firmware-loader` instead of bundling firmware.
 - Use oficial `usbgadget-ncm` script or build custom `usbgadget-rndis`.
 - _**ucify**_ the uz801-tweaks... see `usb0` network setup!
