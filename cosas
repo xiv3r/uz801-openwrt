@@ -10,3 +10,20 @@ ip addr add 10.31.82.182/30 dev wwan0
 ip route add default via 10.31.82.181 dev wwan0
 echo "nameserver 46.6.113.2" > /etc/resolv.conf
 echo "nameserver 217.168.13.34" >> /etc/resolv.conf
+
+
+opkg install uqmi kmod-usb-net-qmi-wwan qmi-utils luci-proto-qmi
+
+uci set network.wwan=interface
+uci set network.wwan.proto='qmi'
+uci set network.wwan.device='/dev/cdc-wdm0'
+uci set network.wwan.apn='internet'      # o tu APN real
+uci set network.wwan.ipv4='1'
+uci set network.wwan.auto='1'            # auto start al boot
+uci set network.wwan.peerdns='1'
+uci commit network
+uci commit network
+
+
+
+debugfs -R "dump WCNSS_qcom_wlan_nv.bin /home/hkfuertes/WCNSS_qcom_wlan_nv.bin" persist.bin
