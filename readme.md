@@ -33,3 +33,4 @@ These are my attempts at building the os... my end goal is to build a working mo
 #### TODO:
 - Use oficial `usbgadget-ncm` script or build custom `usbgadget-rndis`.
 - 'ucify' the uz801-tweaks... see usb0 setup!
+- recover GHA build pipeline
