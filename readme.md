@@ -2,7 +2,7 @@
 These are my attempts at building the os... my end goal is to build a working modern openwrt, but first I will start from immortalwrt from lkiuyu and the from official immortalwrt.
 
 ### lkiuyu/immortalwrt
-- Using msm-loader:
+- Using `msm-firmware-loader`:
   - Working if manually enabled, as it seems that asks for wifi driver before persist is mounted.
     ```shell
       echo start > /sys/class/remoteproc/remoteproc0/state
@@ -31,6 +31,11 @@ These are my attempts at building the os... my end goal is to build a working mo
 - Revert back to bundling the firmwares...
 
 #### TODO:
+- Use `msm-firmware-loader` instead of bundling firmware.
 - Use oficial `usbgadget-ncm` script or build custom `usbgadget-rndis`.
-- 'ucify' the uz801-tweaks... see usb0 setup!
-- recover GHA build pipeline
+- _**ucify**_ the uz801-tweaks... see `usb0` network setup!
+- Recover GHA build pipeline
+
+---
+### Stuff
+- The `msm8916-yiming-uz801v3.dtb` file is a prebuilt dtb extracted from one of the many OpenStick-Builder project living in Github.
