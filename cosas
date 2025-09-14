@@ -25,5 +25,38 @@ uci commit network
 uci commit network
 
 
+mcopy -i ./files/modem.bin -p -m -n -v ::image/mba.mbn ::image/modem.* ::image/wcnss.* ::image/modem_pr/mcfg/configs/mcfg_sw/generic/common/default/default/mcfg_sw.mbn "/lib/firmware"
+debugfs -R "dump * /lib/firmware/wlan/prima/" persist.bin
+----
+# /etc/init.d/wcnss-mac
+#!/bin/sh /etc/rc.common
+START=14
 
-debugfs -R "dump WCNSS_qcom_wlan_nv.bin /home/hkfuertes/WCNSS_qcom_wlan_nv.bin" persist.bin
+USE_PROCD=1
+
+start_service() {
+    SRC="/lib/firmware/wlan/prima/wcnss_mac_addr"  # coloca aquí tu copia del archivo
+    [ -f "$SRC" ] || return 0
+    MAC="$(tr -d '\n\r' < "$SRC")"
+    [ -n "$MAC" ] || return 0
+    # localizar el nodo sysfs wcnss_mac_addr
+    for n in /sys/devices/*wcnss*/wcnss_mac_addr /sys/devices/**/wcnss_mac_addr; do
+        [ -w "$n" ] || continue
+        echo "$MAC" > "$n" 2>/dev/null && break
+    done
+}
+----
+
+podria sacar los firmwares en un init.d
+
+Módem (modem.mbn/NON-HLOS.bin y afines): colocar en una carpeta específica del dispositivo bajo /lib/firmware/updates/qcom/<dispositivo> y/o fijar firmware_class.path a ese directorio para que el kernel lo encuentre sin alterar la imagen base.
+
+Vídeo Venus (venus.mdt + .b00…): copiar a /lib/firmware/qcom/venus-<versión> y, si se desconoce la versión, duplicar en varias carpetas venus-4.2, venus-5.2, etc., como hace linux-firmware para asegurar compatibilidad con distintos kernels.
+
+Wi‑Fi Qualcomm (WCNSS_qcom_wlan_nv.bin, WCNSS_cfg.dat…): colocar en /lib/firmware/wlan/prima/ o, según el driver, en la variante qca_cld; dmesg mostrará la ruta exacta que pide el driver en cada dispositivo.
+
+Bluetooth QCA (archivos de la partición bluetooth): ubicar junto al árbol de firmware bajo la ruta que pida el driver; si se usa una ruta global vía firmware_class.path, bastará con mantener la misma jerarquía relativa que trae Android.
+
+Persist (sns.reg, calibraciones): copiar a subrutas como /lib/firmware/qcom/sensors/ y /lib/firmware/wlan/prima/ para que los subsistemas de sensores y Wi‑Fi encuentren sus blobs.
+
+modemst1/2, fsg, fsc: no se copian al rootfs; el módem los usa en su partición y, si detecta vacío/corrupción, se auto‑recupera desde fsg/fsc en el siguiente boot.
