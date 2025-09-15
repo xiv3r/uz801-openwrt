@@ -1713,7 +1713,7 @@ CONFIG_PACKAGE_procd-ujail=y
 # CONFIG_PACKAGE_qos-scripts is not set
 # CONFIG_PACKAGE_qosify is not set
 # CONFIG_PACKAGE_refpolicy is not set
-# CONFIG_PACKAGE_resolveip is not set
+CONFIG_PACKAGE_resolveip=y
 CONFIG_PACKAGE_rpcd=y
 CONFIG_PACKAGE_rpcd-mod-file=y
 CONFIG_PACKAGE_rpcd-mod-iwinfo=y
@@ -2226,6 +2226,10 @@ CONFIG_PACKAGE_kmod-crypto-hmac=y
 # CONFIG_PACKAGE_kmod-crypto-hw-atmel is not set
 # CONFIG_PACKAGE_kmod-crypto-hw-padlock is not set
 # CONFIG_PACKAGE_kmod-crypto-kpp is not set
+CONFIG_PACKAGE_kmod-crypto-lib-chacha20=y
+CONFIG_PACKAGE_kmod-crypto-lib-chacha20poly1305=y
+CONFIG_PACKAGE_kmod-crypto-lib-curve25519=y
+CONFIG_PACKAGE_kmod-crypto-lib-poly1305=y
 CONFIG_PACKAGE_kmod-crypto-manager=y
 # CONFIG_PACKAGE_kmod-crypto-md4 is not set
 # CONFIG_PACKAGE_kmod-crypto-md5 is not set
@@ -2759,12 +2763,14 @@ CONFIG_PACKAGE_kmod-slhc=y
 # CONFIG_PACKAGE_kmod-tcp-scalable is not set
 # CONFIG_PACKAGE_kmod-tls is not set
 # CONFIG_PACKAGE_kmod-trelay is not set
-# CONFIG_PACKAGE_kmod-tun is not set
+CONFIG_PACKAGE_kmod-tun=y
+CONFIG_PACKAGE_kmod-udptunnel4=y
+CONFIG_PACKAGE_kmod-udptunnel6=y
 # CONFIG_PACKAGE_kmod-unix-diag is not set
 # CONFIG_PACKAGE_kmod-veth is not set
 # CONFIG_PACKAGE_kmod-vrf is not set
 # CONFIG_PACKAGE_kmod-vxlan is not set
-# CONFIG_PACKAGE_kmod-wireguard is not set
+CONFIG_PACKAGE_kmod-wireguard=y
 # end of Network Support
 
 #
@@ -5233,7 +5239,7 @@ CONFIG_PACKAGE_luci-proto-qmi=y
 # CONFIG_PACKAGE_luci-proto-unet is not set
 # CONFIG_PACKAGE_luci-proto-vpnc is not set
 # CONFIG_PACKAGE_luci-proto-vxlan is not set
-# CONFIG_PACKAGE_luci-proto-wireguard is not set
+CONFIG_PACKAGE_luci-proto-wireguard=y
 # CONFIG_PACKAGE_luci-proto-yggdrasil is not set
 # end of 5. Protocols
 
@@ -5255,7 +5261,7 @@ CONFIG_PACKAGE_luci-proto-qmi=y
 # CONFIG_PACKAGE_luci-lib-nixio_cyassl is not set
 CONFIG_PACKAGE_luci-lib-nixio_openssl=y
 # CONFIG_PACKAGE_luci-lib-px5g is not set
-# CONFIG_PACKAGE_luci-lib-uqr is not set
+CONFIG_PACKAGE_luci-lib-uqr=y
 # end of 6. Libraries
 
 CONFIG_PACKAGE_default-settings=y
@@ -5901,7 +5907,7 @@ CONFIG_PACKAGE_knot-resolver_dnstap=y
 # CONFIG_PACKAGE_igmpproxy is not set
 # CONFIG_PACKAGE_ip-bridge is not set
 # CONFIG_PACKAGE_ip-full is not set
-# CONFIG_PACKAGE_ip-tiny is not set
+CONFIG_PACKAGE_ip-tiny=y
 # CONFIG_PACKAGE_lldpd is not set
 # CONFIG_PACKAGE_mrmctl is not set
 # CONFIG_PACKAGE_mwan3 is not set
@@ -6104,7 +6110,7 @@ CONFIG_PACKAGE_knot-resolver_dnstap=y
 # CONFIG_PACKAGE_vpnc-scripts is not set
 # CONFIG_PACKAGE_wgsd-client is not set
 # CONFIG_PACKAGE_wgsd-coredns is not set
-# CONFIG_PACKAGE_wireguard-tools is not set
+CONFIG_PACKAGE_wireguard-tools=y
 # CONFIG_PACKAGE_xl2tpd is not set
 # CONFIG_PACKAGE_zerotier is not set
 # end of VPN
