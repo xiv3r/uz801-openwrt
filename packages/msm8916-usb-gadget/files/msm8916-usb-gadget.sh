@@ -15,7 +15,6 @@ GADGET_PATH="/sys/kernel/config/usb_gadget/msm8916"
 : ${USB_DEVICE_VERSION:="0x0100"}
 : ${USB_MANUFACTURER:="MSM8916"}
 : ${USB_PRODUCT:="USB Gadget"}
-: ${NETWORK_BRIDGE:="br0"}
 
 # Helper functions
 log() {
@@ -248,7 +247,6 @@ setup_gadget() {
 }
 
 setup_network() {
-    . /lib/functions/uci-defaults.sh
     log "Configuring network interfaces"
 
     # Wait for interfaces to appear
@@ -258,20 +256,26 @@ setup_network() {
     if [ "${ENABLE_RNDIS}" = "1" ] && [ -f functions/rndis.usb0/ifname ]; then
         rndis_if="$(cat functions/rndis.usb0/ifname)"
         log "Adding ${rndis_if} to LAN"
-        ucidef_set_interface_lan "${rndis_if}"
+        uci del_list network.@device[0].ports="${rndis_if}"
+        uci add_list network.@device[0].ports="${rndis_if}"
     fi
 
     if [ "${ENABLE_ECM}" = "1" ] && [ -f functions/ecm.usb0/ifname ]; then
         ecm_if="$(cat functions/ecm.usb0/ifname)"
         log "Adding ${ecm_if} to LAN"
-        ucidef_set_interface_lan "${ecm_if}"
+        uci del_list network.@device[0].ports="${ecm_if}"
+        uci add_list network.@device[0].ports="${ecm_if}"
     fi
 
     if [ "${ENABLE_NCM}" = "1" ] && [ -f functions/ncm.usb0/ifname ]; then
         ncm_if="$(cat functions/ncm.usb0/ifname)"
         log "Adding ${ncm_if} to LAN"
-        ucidef_set_interface_lan "${ncm_if}"
+        uci del_list network.@device[0].ports="${ncm_if}"
+        uci add_list network.@device[0].ports="${ncm_if}"
     fi
+
+    uci commit network
+    /etc/init.d/network reload
 }
 
 teardown_gadget() {
@@ -300,15 +304,16 @@ teardown_gadget() {
     # Disable gadget
     echo "" > UDC || true
 
-    #TODO: Remove from uci!
-    # Remove network interfaces from bridge
-    # for func in functions/*/ifname; do
-    #     if [ -f "${func}" ]; then
-    #         iface="$(cat "${func}")"
-    #         ip link set "${iface}" nomaster || true
-    #         ip link set "${iface}" down || true
-    #     fi
-    # done
+    # Remove network interfaces from LAN
+    for func in functions/*/ifname; do
+        if [ -f "${func}" ]; then
+            iface="$(cat "${func}")"
+            uci del_list network.@device[0].ports="${iface}"
+        fi
+    done
+
+    uci commit network
+    /etc/init.d/network reload
 
     # Remove configuration - use wildcard to catch all links
     rm -f configs/c.1/* 2>/dev/null || true

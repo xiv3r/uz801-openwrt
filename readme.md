@@ -35,7 +35,7 @@ These are my attempts at building the os... my end goal is to build a working mo
 - ~~Use `msm-firmware-loader` instead of bundling firmware.~~
   - There is no easy way to load the partitions before kernel looks for them... so dumps instead of ln `msm-firmware-dumper` and then restart...
 - msm8916-usb-gadget:
-  - Add interface(s) to br-lan via uci_functions... see files/board.d
+  - Check serial and ums!
 - _**ucify**_ the uz801-tweaks... see `usb0` network setup!
 - Recover GHA build pipeline
 - Use built dtb from openstick-builder?
