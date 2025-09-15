@@ -23,9 +23,10 @@ endef
 
 define Build/Compile
 	mkdir -p $(PKG_BUILD_DIR)/uz801
-	mcopy -i ./files/modem.bin -p -m -n -v \
+	mcopy -i ./files/uz801/modem.bin -p -m -n -v \
 		::image/mba.mbn ::image/modem.* ::image/wcnss.* \
 		::image/modem_pr/mcfg/configs/mcfg_sw/generic/common/default/default/mcfg_sw.mbn $(PKG_BUILD_DIR)/uz801
+	debugfs -R "dump WCNSS_qcom_wlan_nv.bin $(PKG_BUILD_DIR)/uz801/WCNSS_qcom_wlan_nv.bin" ./files/uz801/persist.bin
 endef
 
 define Package/qcom-msm8916-uz801-wcnss-firmware
@@ -53,7 +54,7 @@ endef
 define Package/qcom-msm8916-wcnss-uz801-nv/install
 	$(INSTALL_DIR) $(1)/lib/firmware/wlan/prima
 	$(INSTALL_DATA) \
-		./files/WCNSS_qcom_wlan_nv.bin \
+		$(PKG_BUILD_DIR)/uz801/WCNSS_qcom_wlan_nv.bin \
 		$(1)/lib/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 endef
 

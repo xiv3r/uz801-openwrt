@@ -26,7 +26,15 @@ uci commit network
 
 
 mcopy -i ./files/modem.bin -p -m -n -v ::image/mba.mbn ::image/modem.* ::image/wcnss.* ::image/modem_pr/mcfg/configs/mcfg_sw/generic/common/default/default/mcfg_sw.mbn "/lib/firmware"
-debugfs -R "dump * /lib/firmware/wlan/prima/" persist.bin
+debugfs -R "dump WCNSS_qcom_wlan_nv.bin /lib/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin" persist.bin
+debugfs -R "dump wcnss_mac_addr /lib/firmware/wlan/prima/" persist.bin
+debugfs -R "dump .bt_nv.bin /lib/firmware/wlan/prima/" persist.bin
+debugfs -R "dump wifi.json /lib/firmware/wlan/prima/" persist.bin
+debugfs -R "dump * /home/hkfuertes/" persist.bin
+
+debugfs -R "dump WCNSS_qcom_wlan_nv.bin $(PKG_BUILD_DIR)/uz801/WCNSS_qcom_wlan_nv.bin" persist.bin
+
+
 ----
 # /etc/init.d/wcnss-mac
 #!/bin/sh /etc/rc.common
