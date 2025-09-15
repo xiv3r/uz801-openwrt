@@ -34,8 +34,7 @@ These are my attempts at building the os... my end goal is to build a working mo
 - Modem does not register...
 - ~~Use `msm-firmware-loader` instead of bundling firmware.~~
   - There is no easy way to load the partitions before kernel looks for them... so dumps instead of ln `msm-firmware-dumper` and then restart...
-- msm8916-usb-gadget:
-  - Check serial and ums!
+- msm8916-usb-gadget: attach console to tty?
 - _**ucify**_ the uz801-tweaks... see `usb0` network setup!
 - Recover GHA build pipeline
 - Use built dtb from openstick-builder?
