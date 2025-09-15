@@ -39,6 +39,7 @@ These are my attempts at building the os... my end goal is to build a working mo
 - _**ucify**_ the uz801-tweaks... see `usb0` network setup!
 - Recover GHA build pipeline
 - Use built dtb from openstick-builder?
+- create dependency script (instead of dockerfile) to reuse in multiple dockerfiles and GHA
 
 ---
 ### Stuff
