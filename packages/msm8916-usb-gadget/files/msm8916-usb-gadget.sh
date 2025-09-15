@@ -243,43 +243,34 @@ setup_gadget() {
     log "Using UDC: ${udc}"
     echo "${udc}" > UDC || error "Failed to enable UDC"
 
-    # Configure network interfaces
-    # setup_network()
-    # Use uci instead!
+    # Configure network interfaces via UCI
+    setup_network
 }
 
 setup_network() {
+    . /lib/functions/uci-defaults.sh
     log "Configuring network interfaces"
 
     # Wait for interfaces to appear
     sleep 1
 
-    # Check if bridge exists
-    if ! ip link show "${NETWORK_BRIDGE}" >/dev/null 2>&1; then
-        log "Warning: Bridge ${NETWORK_BRIDGE} does not exist"
-        return
-    fi
-
     # Add interfaces to bridge
     if [ "${ENABLE_RNDIS}" = "1" ] && [ -f functions/rndis.usb0/ifname ]; then
         rndis_if="$(cat functions/rndis.usb0/ifname)"
-        log "Adding ${rndis_if} to bridge ${NETWORK_BRIDGE}"
-        ip link set "${rndis_if}" up
-        ip link set "${rndis_if}" master "${NETWORK_BRIDGE}" || true
+        log "Adding ${rndis_if} to LAN"
+        ucidef_set_interface_lan "${rndis_if}"
     fi
 
     if [ "${ENABLE_ECM}" = "1" ] && [ -f functions/ecm.usb0/ifname ]; then
         ecm_if="$(cat functions/ecm.usb0/ifname)"
-        log "Adding ${ecm_if} to bridge ${NETWORK_BRIDGE}"
-        ip link set "${ecm_if}" up
-        ip link set "${ecm_if}" master "${NETWORK_BRIDGE}" || true
+        log "Adding ${ecm_if} to LAN"
+        ucidef_set_interface_lan "${ecm_if}"
     fi
 
     if [ "${ENABLE_NCM}" = "1" ] && [ -f functions/ncm.usb0/ifname ]; then
         ncm_if="$(cat functions/ncm.usb0/ifname)"
-        log "Adding ${ncm_if} to bridge ${NETWORK_BRIDGE}"
-        ip link set "${ncm_if}" up
-        ip link set "${ncm_if}" master "${NETWORK_BRIDGE}" || true
+        log "Adding ${ncm_if} to LAN"
+        ucidef_set_interface_lan "${ncm_if}"
     fi
 }
 
@@ -309,14 +300,15 @@ teardown_gadget() {
     # Disable gadget
     echo "" > UDC || true
 
+    #TODO: Remove from uci!
     # Remove network interfaces from bridge
-    for func in functions/*/ifname; do
-        if [ -f "${func}" ]; then
-            iface="$(cat "${func}")"
-            ip link set "${iface}" nomaster || true
-            ip link set "${iface}" down || true
-        fi
-    done
+    # for func in functions/*/ifname; do
+    #     if [ -f "${func}" ]; then
+    #         iface="$(cat "${func}")"
+    #         ip link set "${iface}" nomaster || true
+    #         ip link set "${iface}" down || true
+    #     fi
+    # done
 
     # Remove configuration - use wildcard to catch all links
     rm -f configs/c.1/* 2>/dev/null || true
