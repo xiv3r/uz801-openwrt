@@ -3,10 +3,10 @@ FROM debian:bookworm-slim AS base
 LABEL maintainer="OpenWrt Builder"
 
 # Install required dependencies
-COPY dependencies.sh /dependencies.sh
-RUN chmod +x /dependencies.sh && \
-    /dependencies.sh && \
-    rm -rf /dependencies.sh
+COPY ./dependencies.sh /install_dependencies
+RUN chmod +x /install_dependencies && \
+    /install_dependencies && \
+    rm -rf /install_dependencies
 
 # Create a non-root user for building
 RUN useradd -G sudo -m -u 1000 builder
