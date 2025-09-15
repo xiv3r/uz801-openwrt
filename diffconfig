@@ -51,6 +51,7 @@ CONFIG_PACKAGE_luci-theme-bootstrap=y
 CONFIG_PACKAGE_modemmanager=y
 CONFIG_PACKAGE_msm8916-usb-gadget=y
 CONFIG_PACKAGE_mtools=y
+CONFIG_PACKAGE_nano=y
 CONFIG_PACKAGE_qmi-utils=y
 CONFIG_PACKAGE_rpcd=y
 CONFIG_PACKAGE_rpcd-mod-file=y
@@ -68,3 +69,5 @@ CONFIG_PACKAGE_uqmi=y
 CONFIG_PACKAGE_wwan=y
 # CONFIG_TARGET_IMAGES_GZIP is not set
 # CONFIG_TARGET_ROOTFS_SQUASHFS is not set
+# CONFIG_PACKAGE_libncurses is not set
+# CONFIG_PACKAGE_terminfo is not set
