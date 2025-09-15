@@ -19,7 +19,7 @@ FROM base
 RUN git clone --depth=1 https://github.com/lkiuyu/immortalwrt openwrt
 
 # Restoring default feeds.
-COPY feeds.conf.default openwrt/
+COPY mods/feeds.conf.default openwrt/
 
 RUN openwrt/scripts/feeds update -a && \
     openwrt/scripts/feeds install -a
