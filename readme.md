@@ -8,8 +8,6 @@ These are my attempts at building the os... my end goal is to build a working mo
 - USB gadget working (NCM, RNDIS, MASS, ACM tested!)
 ---
 ### TODO:
-- ~~Use `msm-firmware-loader` instead of bundling firmware.~~
-  - There is no easy way to load the partitions before kernel looks for them...
 - Recover GHA build pipeline
 - Use built dtb from openstick-builder?
   - use linux's dts?
