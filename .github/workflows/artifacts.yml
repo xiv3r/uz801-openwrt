@@ -1,0 +1,59 @@
+name: update
+
+on:
+  workflow_dispatch:  # Manual trigger
+  release:
+    types: [published]  # Trigger when a new release is published
+
+jobs:
+  download-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch all history for tags
+
+    - name: Download files
+      run: |
+        mkdir -p downloads
+        
+        # Download files with proper filenames
+        echo "Downloading files..."
+        curl -L -f -o "downloads/openwrt-build-2025-9-30.zip" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547454"
+        curl -L -f -o "downloads/openwrt-image-builder-2025-9-30.tar.zst" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547707"
+        
+        # List downloaded files to verify
+        echo "Downloaded files:"
+        ls -la downloads/
+        echo "File sizes:"
+        du -h downloads/*
+
+    - name: Create and push tag
+      id: tag_version
+      run: |
+        # Get the release version from the GitHub context
+        if [ "${{ github.event_name }}" == "release" ]; then
+          VERSION="${{ github.event.release.tag_name }}"
+        else
+          # For manual triggers, generate a timestamp-based version
+          VERSION="openwrt-snapshot-build-2025.9.30"
+        fi
+        
+        # Create annotated tag
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag -a "$VERSION" -m "Release $VERSION"
+        git push origin "$VERSION"
+        
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Upload files to release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.tag_version.outputs.version }}
+        files: |
+          downloads/*.*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
