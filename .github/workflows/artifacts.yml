@@ -22,7 +22,7 @@ jobs:
         # Download files with proper filenames
         echo "Downloading files..."
         curl -L -f -o "downloads/openwrt-build-2025-9-30.zip" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547454"
-        curl -L -f -o "downloads/openwrt-image-builder-2025-9-30.tar.zst" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547707"
+        curl -L -f -o "downloads/openwrt-image-builder-2025-9-30.zip" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547707"
         
         # List downloaded files to verify
         echo "Downloaded files:"
