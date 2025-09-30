@@ -21,8 +21,8 @@ jobs:
         
         # Download files with proper filenames
         echo "Downloading files..."
-        curl -L -f -o "downloads/openwrt-build-2025-9-30.zip" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547454"
-        curl -L -f -o "downloads/openwrt-image-builder-2025-9-30.zip" "https://github.com/xiv3r/uz801-openwrt/actions/runs/18117832237/artifacts/4139547707"
+        curl -L -f -o "downloads/openwrt-build-2025-9-30.zip" "https://productionresultssa3.blob.core.windows.net/actions-results/4a3e029f-081b-4ea8-b493-c124f0efe474/workflow-job-run-cefb6040-0e8b-5a9f-91a5-9c7f89269920/artifacts/92b6cc3cd71ac3299c350e1ea69de91c141d37b6db73570237cdb9928fca1014.zip?rscd=attachment%3B+filename%3D%22openwrt_firmware_yiming-uz801v3_202509300643.zip%22&se=2025-09-30T05%3A37%3A20Z&sig=rDhpMPU13HP5LWg7l%2F226lsRGTjpr4IobS%2FBO4Z6JJs%3D&ske=2025-09-30T14%3A10%3A15Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2025-09-30T02%3A10%3A15Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2025-09-30T05%3A27%3A15Z&sv=2025-11-05"
+        curl -L -f -o "downloads/openwrt-image-builder-2025-9-30.zip" "https://productionresultssa3.blob.core.windows.net/actions-results/4a3e029f-081b-4ea8-b493-c124f0efe474/workflow-job-run-cefb6040-0e8b-5a9f-91a5-9c7f89269920/artifacts/a6e0e449a5ffa16e0d91bc1ce13b6f53de69f8069d08818639281a2a3417dc3f.zip?rscd=attachment%3B+filename%3D%22openwrt_imagebuilder_yiming-uz801v3_202509300643.zip%22&se=2025-09-30T05%3A38%3A15Z&sig=fxCaxP3QmUyds3um5xcT5ZxLKXjEl4GcJc58ZgQEehA%3D&ske=2025-09-30T14%3A10%3A16Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2025-09-30T02%3A10%3A16Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2025-09-30T05%3A28%3A10Z&sv=2025-11-05"
         
         # List downloaded files to verify
         echo "Downloaded files:"
