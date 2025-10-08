@@ -19,7 +19,12 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3-firmware.zip
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3-flash.sh
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-boot.img
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-gpt_both0.bin
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-system.img
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.8/openwrt-msm89xx-msm8916-yiming-uz801v3.manifest
         
           
     - name: Determine release tag
@@ -28,7 +33,7 @@ jobs:
         if [ "${{ github.event_name }}" == "release" ]; then
           TAG_NAME="${{ github.event.release.tag_name }}"
         else
-          TAG_NAME="openwrt-22.03.5-xiaomi-4c"
+          TAG_NAME="v1.0.7"
         fi
         echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
