@@ -19,8 +19,13 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        axel https://portswigger.net/burp/releases/download?product=pro&type=Jar
-        
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3-firmware.zip
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3-flash.sh
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-boot.img
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-gpt_both0.bin
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3-squashfs-system.img
+        wget https://github.com/hkfuertes/uz801-openwrt/releases/download/v1.0.9/openwrt-msm89xx-msm8916-yiming-uz801v3.manifest
+                
     - name: Determine release tag
       id: get_tag
       run: |
