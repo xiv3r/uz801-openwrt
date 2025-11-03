@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O file.zip --load-cookies cookies.txt ""
+        wget -O openwrt-uz801v3.zip --load-cookies cookies.txt "https://productionresultssa19.blob.core.windows.net/actions-results/9aad9002-47ae-4b59-9d98-06dba35c5e4c/workflow-job-run-cf8426b7-626a-5109-b154-7ca4668be5af/artifacts/0d78330f93bd48a48960bff32b9ddedc2b1aed66cf3605ae038e065f4a9b82c7.zip?rscd=attachment%3B+filename%3D%22openwrt_firmware_yiming-uz801v3_202511030426.zip%22&se=2025-11-03T05%3A35%3A54Z&sig=ZMubzSOBUjaUpZcGDMMKljaaZRfQddkZT1GqPVWHclI%3D&ske=2025-11-03T16%3A33%3A52Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2025-11-03T04%3A33%3A52Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2025-11-03T05%3A25%3A49Z&sv=2025-11-05"
                    
     - name: Determine release tag
       id: get_tag
@@ -27,7 +27,7 @@ jobs:
         if [ "${{ github.event_name }}" == "release" ]; then
           TAG_NAME="${{ github.event.release.tag_name }}"
         else
-          TAG_NAME="openwrt-uz801-build-11-03-2025"
+          TAG_NAME="openwrt-uz801v3-build-11-03-2025"
         fi
         echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
