@@ -6,8 +6,8 @@ on:
 env:
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
-  UPLOAD_RELEASE: false
-  TZ: Europe/Madrid
+  UPLOAD_RELEASE: true
+  TZ: Asia/Manila
 
 jobs:
   build:
