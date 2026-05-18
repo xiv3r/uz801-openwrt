@@ -3,10 +3,15 @@
 
 PART_NAME=firmware
 REQUIRE_IMAGE_METADATA=1
+RAMFS_COPY_DATA="/lib/functions.sh /lib/upgrade/common.sh /lib/upgrade/fwtool.sh /lib/upgrade/luci-add-conffiles.sh /lib/upgrade/platform.sh /lib/upgrade/tar.sh"
 
 platform_check_image() {
     local fw_image="$1"
-    local boardname="$(board_name | tr -d '-' | tr ',' '-')"
+    local boardname
+    
+    read boardname </tmp/sysinfo/board_name
+    boardname=${boardname//-/}
+    boardname=${boardname//,/-}
 
     # Must be a tar archive
     local control_len=$( (tar xf $fw_image sysupgrade-$boardname/CONTROL -O | wc -c) 2> /dev/null)
@@ -47,6 +52,4 @@ platform_do_upgrade() {
 platform_pre_upgrade() {
     rm -fr /overlay/upper/* /overlay/upper/.* 2>/dev/null
     [ -f "$UPGRADE_BACKUP" ] && cp -f "$UPGRADE_BACKUP" "/overlay/upper/$BACKUP_FILE" 2>/dev/null
-
-    return 0
 }
