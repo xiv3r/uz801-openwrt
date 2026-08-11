@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O openwrt-uz801v3.zip --load-cookies cookies.txt "https://productionresultssa18.blob.core.windows.net/actions-results/041eeb20-5bdd-49d7-b2e2-9ace45a34a00/workflow-job-run-f2080f6b-9a36-5623-9b50-e10eed7b55db/artifacts/149391671dea77e0e2916e4d972524f0a6b0df1acadd2226752b15d93fc69bdf.zip?rscd=attachment%3B+filename%3D%22openwrt_firmware_yiming-uz801v3_202511161828.zip%22&se=2025-11-16T10%3A44%3A12Z&sig=6ZwlbXLhX1DGOkdZ9RaC52ojjoTOpg2wNwXZh6Nr3DQ%3D&ske=2025-11-16T20%3A24%3A36Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2025-11-16T08%3A24%3A36Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2025-11-16T10%3A34%3A07Z&sv=2025-11-05"
+        wget -O openwrt-uz801v3.zip --load-cookies cookies.txt "https://github.com/hkfuertes/msm8916-openwrt/releases/download/v1.0.14/openwrt_firmware_uz801_v25.12.5_202607062022.zip"
                    
     - name: Determine release tag
       id: get_tag
@@ -27,12 +27,12 @@ jobs:
         if [ "${{ github.event_name }}" == "release" ]; then
           TAG_NAME="${{ github.event.release.tag_name }}"
         else
-          TAG_NAME="openwrt-uz801v3-build-11-16-2025"
+          TAG_NAME="openwrt-uz801v3-07-7-2026"
         fi
         echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
     - name: Delete existing release assets
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const { data: releases } = await github.rest.repos.listReleases({
@@ -71,7 +71,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload files to existing release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ steps.get_tag.outputs.tag_name }}
         files: |
